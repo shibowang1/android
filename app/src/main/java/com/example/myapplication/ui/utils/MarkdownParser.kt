@@ -114,7 +114,7 @@ object MarkdownParser {
                         pushStyle(SpanStyle(
                             fontFamily = FontFamily.Monospace,
                             background = Color(0xFFEFEFEF),
-                            color = Color(0xFFE91E63) // 骚粉色强调
+                            color = Color(0xFFE91E63) // 粉色强调
                         ))
                         append(child.literal)
                         pop()
