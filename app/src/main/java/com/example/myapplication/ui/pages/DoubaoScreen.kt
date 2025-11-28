@@ -19,10 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 
 // ...
 import com.example.myapplication.domain.entities.Message
 import com.example.myapplication.data.remote.getSimulatedResponse
+import com.example.myapplication.ui.components.ChatBubble
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.text.forEach
@@ -38,6 +40,7 @@ fun DoubaoScreen() {
             Message("1", "你好！我是升级版豆包。\n\n我现在支持：\n- **代码高亮**\n- **图片显示**\n- **流式打字效果**\n\n快试着问我点什么吧！", false)
         )
     }
+    val context = LocalContext.current
 
     var inputText by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -108,15 +111,27 @@ fun DoubaoScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(messages) { msg ->
-                com.example.myapplication.ui.components.ChatBubble(message = msg)
+                ChatBubble(
+                    message = msg,
+                    onRegenerate = {
+                        // 这里是"重新生成"的业务逻辑
+                        // 目前我们只做 UI 演示，实际需调用 ViewModel
+                        if (!isGenerating) {
+                            // 演示：删除当前这条 AI 消息，并提示
+                            // 实际逻辑应该是：拿到上一条用户的提问，重新请求 LlmHelper
+                            android.widget.Toast.makeText(
+                                context,
+                                "正在重新生成...",
+                                android.widget.Toast.LENGTH_SHORT
+                            ).show()
+
+                            // 这里为了演示效果，你可以把当前这条消息删掉，或者清空内容重新触发流式
+                            // 比如: scope.launch { ... 重新调用 LlmHelper ... }
+                        }
+                    }
+                )
             }
 
-            // 如果正在生成，可以在最底部加一个小光标或loading（可选）
-            if (isGenerating && messages.last().isUser) {
-                item {
-                    Text("豆包正在思考...", color = Color.Gray, fontSize = 12.sp, modifier = Modifier.padding(start = 16.dp))
-                }
-            }
         }
     }
 }

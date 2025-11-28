@@ -59,7 +59,7 @@ object MarkdownParser {
                     blocks.add(com.example.myapplication.ui.utils.MarkdownBlock.CodeFence(node.literal ?: "", node.info ?: ""))
                 }
 
-                // ✅✅✅ 新增：列表处理 (无序 BulletList & 有序 OrderedList) ✅✅✅
+                // 新增：列表处理 (无序 BulletList & 有序 OrderedList)
                 is BulletList, is OrderedList -> {
                     var listItem = node.firstChild
                     var index = 1

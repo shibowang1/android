@@ -82,7 +82,7 @@ fun CodeBlockDisplay(code: String, language: String) {
                 SelectionContainer {
                     Text(
                         text = com.example.myapplication.ui.utils.SimpleSyntaxHighlighter.highlight(code, language),
-                        // ✅✅✅ 核心修改：强制将基础文字颜色设为浅灰色，防止看不清
+                        //  核心修改：强制将基础文字颜色设为浅灰色，防止看不清
                         color = Color(0xFFA9B7C6),
 
                         fontFamily = FontFamily.Monospace,
