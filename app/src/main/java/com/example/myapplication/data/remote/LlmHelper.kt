@@ -6,7 +6,7 @@ package com.example.myapplication.data.remote
 fun getSimulatedResponse(userQuestion: String): String {
     return if (userQuestion.contains("picture")) {
         """
-        好的，这是你要的图片：
+        好的，这是你要的图片：测试git功能
 
         ![风景](https://picsum.photos/600/350)
 
